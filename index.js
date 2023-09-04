@@ -142,7 +142,12 @@ function detectCollision() {
     clearInterval(timerId);
     scoreboard.innerHTML = "GAME OVER";
     document.removeEventListener("keydown", moveUser);
-  }
+
+    if (boxes.length === 0) {
+    endGame("Congratulations! You won!");
+    }
+
+  // Additional game over conditions can be added here
 }
 
 // Function to change the ball's direction
@@ -157,3 +162,21 @@ function changeDirection() {
     xDirection = 2;
   }
 }
+
+
+function clearGrid() {
+    const allBoxes = document.querySelectorAll(".box");
+    allBoxes.forEach((box) => {
+      grid.removeChild(box);
+    });
+  }
+
+function endGame(message) {
+    clearInterval(timerId); // Stop the game timer
+    scoreboard.innerHTML = message; // Display an end game message
+    document.removeEventListener("keydown", moveUser); // Remove the ability to move the user
+    // Clear the grid and create a new set of boxes
+    clearGrid();
+    createBoxes(15); // Adjust the number of boxes as needed
+
+  }}
